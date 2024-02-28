@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class LovedonateInfo  extends AbstractEntity {
 
   private String donaThings;
-  private java.util.Date donateTime;
+
   private String state;
   private Integer userId;
 
@@ -29,13 +29,6 @@ public class LovedonateInfo  extends AbstractEntity {
   }
 
 
-  public java.util.Date getDonateTime() {
-    return donateTime;
-  }
-
-  public void setDonateTime(java.util.Date donateTime) {
-    this.donateTime = donateTime;
-  }
 
 
   public String getState() {

@@ -1,41 +1,22 @@
-package com.Application.entity.pojo;
+package edu.xhu.lhms.module.activity.entity;
+
+import com.baomidou.mybatisplus.annotation.TableName;
+import edu.xhu.lhms.module.common.entity.AbstractEntity;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "regis_activity")
+@TableName("regis_activity")
+public class RegisActivity extends AbstractEntity {
 
 
-public class RegisActivity {
-
-  private Integer regisId;
-  private java.util.Date regisTime;
-  private java.util.Date updateTime;
   private String state;
   private Integer actId;
   private Integer userId;
 
 
-  public Integer getRegisId() {
-    return regisId;
-  }
-
-  public void setRegisId(Integer regisId) {
-    this.regisId = regisId;
-  }
-
-
-  public java.util.Date getRegisTime() {
-    return regisTime;
-  }
-
-  public void setRegisTime(java.util.Date regisTime) {
-    this.regisTime = regisTime;
-  }
-
-
-  public java.util.Date getUpdateTime() {
-    return updateTime;
-  }
-
-  public void setUpdateTime(java.util.Date updateTime) {
-    this.updateTime = updateTime;
-  }
 
 
   public String getState() {

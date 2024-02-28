@@ -1,25 +1,22 @@
-package com.Application.entity.pojo;
+package edu.xhu.lhms.module.activity.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+import edu.xhu.lhms.module.common.entity.AbstractEntity;
 
-public class Activity {
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-  private Integer actId;
+@Entity
+@Table(name = "activity")
+@TableName("activity")
+public class Activity extends AbstractEntity {
+
   private String image;
   private String title;
   private String content;
-  private java.util.Date createTime;
-  private java.util.Date updateTime;
   private String state;
   private Integer userId;
 
-
-  public Integer getActId() {
-    return actId;
-  }
-
-  public void setActId(Integer actId) {
-    this.actId = actId;
-  }
 
 
   public String getImage() {
@@ -49,22 +46,6 @@ public class Activity {
   }
 
 
-  public java.util.Date getCreateTime() {
-    return createTime;
-  }
-
-  public void setCreateTime(java.util.Date createTime) {
-    this.createTime = createTime;
-  }
-
-
-  public java.util.Date getUpdateTime() {
-    return updateTime;
-  }
-
-  public void setUpdateTime(java.util.Date updateTime) {
-    this.updateTime = updateTime;
-  }
 
 
   public String getState() {
