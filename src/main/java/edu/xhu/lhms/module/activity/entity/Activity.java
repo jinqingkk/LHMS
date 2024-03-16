@@ -15,7 +15,8 @@ public class Activity extends AbstractEntity {
   private String title;
   private String content;
   private String state;
-  private Integer userId;
+  private int userId;
+
 
 
 

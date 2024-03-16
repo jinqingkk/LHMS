@@ -11,17 +11,13 @@ import javax.persistence.Table;
 @Table(name = "login_info")
 @TableName("login_info")
 public class LoginInfo  extends AbstractEntity {
-  private Integer userId;
+  private int userId;
 
-
-
-
-
-  public Integer getUserId() {
+  public int getUserId() {
     return userId;
   }
 
-  public void setUserId(Integer userId) {
+  public void setUserId(int userId) {
     this.userId = userId;
   }
 

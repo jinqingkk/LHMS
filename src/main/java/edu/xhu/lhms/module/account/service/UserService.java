@@ -9,9 +9,7 @@ import edu.xhu.lhms.module.common.vo.Result;
 
 import javax.servlet.http.HttpSession;
 
-/**
- * BalanceService
- */
+
 public interface UserService extends ModelService<User> {
 
 	Result<User> login(User user, HttpSession session);
@@ -22,4 +20,9 @@ public interface UserService extends ModelService<User> {
 	Result<User> getModelByUserName(String userName);
 
 	PageInfo<User> findModelsBySearch(UserVo search);
+
+	Result<Object> loginout(int id);
+	Result<User> findUserByOpenId(User model);
+
+	Result<User> sendCheckCode(User model);
 }

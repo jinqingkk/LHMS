@@ -21,6 +21,10 @@ public class User extends AbstractEntity {
 	@TableField(exist = false)
 	private List<Image> userImg;
 
+//	@TableField("open_id")
+	private String openId;
+
+	private String credential;
 	private String gender;
 	private String email;
 	private  String phoneNumber;
@@ -102,5 +106,21 @@ public class User extends AbstractEntity {
 
 	public void setImages(List<Image> images) {
 		this.userImg = images;
+	}
+
+	public String getOpenId() {
+		return openId;
+	}
+
+	public void setOpenId(String openId) {
+		this.openId = openId;
+	}
+
+	public String getCredential() {
+		return credential;
+	}
+
+	public void setCredential(String credential) {
+		this.credential = credential;
 	}
 }

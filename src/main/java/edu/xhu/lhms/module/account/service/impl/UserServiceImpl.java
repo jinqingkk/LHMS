@@ -2,12 +2,12 @@ package edu.xhu.lhms.module.account.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.xhu.lhms.module.account.dao.LoginInfoDao;
 import edu.xhu.lhms.module.account.dao.UserDao;
+import edu.xhu.lhms.module.account.entity.LoginInfo;
 import edu.xhu.lhms.module.account.entity.User;
 import edu.xhu.lhms.module.account.service.UserService;
 import edu.xhu.lhms.module.account.vo.UserVo;
-//import edu.xhu.lhms.module.balance.dao.BalanceDao;
-//import edu.xhu.lhms.module.balance.entity.Balance;
 import edu.xhu.lhms.module.common.dao.ImageDao;
 import edu.xhu.lhms.module.common.entity.Image;
 import edu.xhu.lhms.module.common.vo.ImageType;
@@ -15,6 +15,9 @@ import edu.xhu.lhms.module.common.vo.Result;
 import edu.xhu.lhms.module.common.vo.Search;
 import edu.xhu.lhms.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +26,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -31,53 +35,61 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 	@Autowired
 	private ImageDao imageDao;
-//	@Autowired
-//	private BalanceDao balanceDao;
-
+	@Autowired
+	private LoginInfoDao loginInfoDao;
+	@Value("${spring.mail.username}")
+	private String from;
+	@Autowired
+	private JavaMailSender javaMailSender;
 	@Override
 	@Transactional
 	public Result<User> login(User model,HttpSession session) {
-		User userId=userDao.getIdByUsernameAndPassword(model.getUserName(),MD5Util.getMD5(model.getPassword()));
-		if(userId !=null){
-			session.setAttribute("userId",userId.getId());
-			return Result.ok(userId);
+		User user=userDao.getIdByUsernameAndPassword(model.getUserName(),MD5Util.getMD5(model.getPassword()));
+		if(user !=null){
+			session.setAttribute("userId",user.getId());
+			LoginInfo loginInfo=new LoginInfo();
+			loginInfo.setUserId(user.getId());
+			loginInfo.setCreateDate(LocalDateTime.now());
+			loginInfo.setUpdateDate(LocalDateTime.now());
+			loginInfoDao.insert(loginInfo);
+			//session.setAttribute("userLoginTime",loginInfo.getCreateDate());
+			return Result.ok(user);
 		}
 		return Result.faild("用户名或密码错误！");
 	}
 
+	@Override
+	public Result<Object> loginout(int id) {
+		LoginInfo loginInfo=loginInfoDao.selectByUserId(id);
+		loginInfo.setUpdateDate(LocalDateTime.now());
+		loginInfoDao.updateById(loginInfo);
+		return null;
+	}
 
 	@Override
 	//@Transactional
 	public Result<User> insertModel(User model) {
-//		User temp = userDao.getUserByUserName(model.getUserName());
-//		if (temp != null) {
-//			return Result.faild("用户名重复。");
-//		}
-//
-//		model.setCreateDate(LocalDateTime.now());
-//		model.setUpdateDate(LocalDateTime.now());
-//		model.setPassword(MD5Util.getMD5(model.getPassword()));
-//
-////		// 处理images
-////		model.getImages().stream().forEach(item -> {
-////			item.setSubject(
-////					String.format("%s%s", ImageType.PROFILE.name, model.getId()));
-////			item.setCreateDate(LocalDateTime.now());
-////			item.setUpdateDate(LocalDateTime.now());
-////			imageDao.insert(item);
-////		});
-//		userDao.insert(model);
-//		Balance balance=new Balance();
-//		User u1=userDao.getUserByUserName(model.getUserName());
-//		balance.setUserId(6);
-//		balance.setBalance(0);
-//		balance.setCashback(0);
-//		balance.setCreateDate(model.getCreateDate());
-//		balance.setUpdateDate(LocalDateTime.now());
-//		balanceDao.insert(balance);
+		User temp = userDao.getUserByUserName(model.getUserName());
+		if (temp != null) {
+			return Result.faild("用户名重复。");
+		}
 
-		return null;
-//		Result.ok(model);
+		model.setCreateDate(LocalDateTime.now());
+		model.setUpdateDate(LocalDateTime.now());
+		model.setPassword(MD5Util.getMD5(model.getPassword()));
+
+//		// 处理images
+//		model.getImages().stream().forEach(item -> {
+//			item.setSubject(
+//					String.format("%s%s", ImageType.PROFILE.name, model.getId()));
+//			item.setCreateDate(LocalDateTime.now());
+//			item.setUpdateDate(LocalDateTime.now());
+//			imageDao.insert(item);
+//		});
+		if(userDao.insert(model)>0){
+			return Result.ok(model);
+		}
+		return Result.faild("注册失败");
 	}
 
 	@Override
@@ -133,7 +145,6 @@ public class UserServiceImpl implements UserService {
 		userDao.deleteById(id);
 		imageDao.deleteImagesBySubject(
 				String.format("%s%s", ImageType.PROFILE.name, id));
-		//balanceDao.deleteByUserId(id);
 		return Result.ok(id);
 	}
 
@@ -182,5 +193,38 @@ public class UserServiceImpl implements UserService {
 			item.setImages(images);
 		});
 		return pageInfo;
+	}
+	@Override
+//	@Transactional
+	public Result<User> findUserByOpenId(User model) {
+		User user=userDao.selectByOpenId(model.getOpenId());
+		if(user==null){
+			return Result.faild("该用户不存在");
+		}
+		if(!user.getCredential().equals(model.getCredential())){
+			return Result.faild("登录凭证不正确");
+		}
+		return Result.ok(user);
+	}
+
+	@Override
+	public Result<User> sendCheckCode(User model) {
+		String checkCode = String.valueOf(new Random().nextInt(899999) + 100000);
+		String message = "您的注册验证码为："+checkCode;
+		try{
+			SimpleMailMessage mailMessage = new SimpleMailMessage();
+//			JavaMailSender javaMailSender = new JavaMailSender() {
+//			};
+			mailMessage.setFrom(from);
+			mailMessage.setTo(model.getEmail());//usersBo.getEmail(), "注册验证码", message
+			mailMessage.setSubject("验证码");
+			mailMessage.setText(message);
+			javaMailSender.send(mailMessage);
+//		log.info("邮件发送成功");
+		}catch (Exception e){
+			return Result.faild();
+		}
+
+		return Result.ok(checkCode);
 	}
 }

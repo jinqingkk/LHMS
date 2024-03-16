@@ -16,8 +16,10 @@ import java.util.List;
 @Mapper
 @Repository
 public interface UserDao extends BaseMapper<User> {
+	@Select("select * from user_info where open_id = #{openId} limit 1")
+    User selectByOpenId(@Param("openId") String openId) ;
 
-	@Select("select * from user_info where user_name = #{userName} limit 1")
+    @Select("select * from user_info where user_name = #{userName} limit 1")
 	User getUserByUserName(@Param("userName") String userName);
 	@Select("select * from user_info where user_name = #{userName} and password=#{password} limit 1")
 	User getIdByUsernameAndPassword(@Param("userName") String userName,@Param("password") String password);

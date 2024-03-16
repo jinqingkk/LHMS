@@ -11,15 +11,17 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.websocket.server.PathParam;
+
 //@CrossOrigin //解决跨域问题
 @RestController
-@RequestMapping("/api/account")
+@RequestMapping("/account")
 public class UserController {
 	@Autowired
 	private UserService userService;
 
 	/**
-	 * 127.0.0.1/api/account/user ---- post
+	 * 127.0.0.1/account/user ---- post
 	 */
 	@PostMapping(value = "/user", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Result<User> insertModel(@RequestBody User model) {
@@ -29,6 +31,16 @@ public class UserController {
 	public Result<User> login(@RequestBody User model, HttpSession session) {
 		return userService.login(model,session);
 	}
+	@PostMapping(value = "/loginbywechat", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Result<User> loginbywechat(@RequestBody User model) {
+		return userService.findUserByOpenId(model);
+	}
+	@PostMapping(value = "/sendCheckCode", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Result<User> sendCheckCode(@RequestBody User model) {
+		return userService.sendCheckCode(model);
+	}
+	@GetMapping(value = "/loginout/{id}")
+	public Result<Object> loginout(@PathVariable int id){return userService.loginout(id);}
 	@PutMapping(value = "/user", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Result<User> updateModel(@RequestBody User model) {
 		return userService.updateModel(model);
