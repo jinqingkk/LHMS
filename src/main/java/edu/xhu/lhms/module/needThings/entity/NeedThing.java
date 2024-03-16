@@ -1,4 +1,4 @@
-package edu.xhu.lhms.module.volunActivity.entity;
+package edu.xhu.lhms.module.needThings.entity;
 
 
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -10,48 +10,34 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "volun_activity")
-@TableName("volun_activity")
-public class VolunActivity  extends AbstractEntity {
+@Table(name = "need_thing")
+@TableName("need_thing")
+public class NeedThing  extends AbstractEntity {
 
-  private String image;
-  private String title;
-  private String content;
-
+  private String item;
+  private String count;
   private String state;
   private int userId;
-
   @Transient
   @TableField(exist = false)
-  private  String username;
+  private String username;
 
 
-  public String getImage() {
-    return image;
+  public String getItem() {
+    return item;
   }
 
-  public void setImage(String image) {
-    this.image = image;
+  public void setItem(String item) {
+    this.item = item;
   }
 
-
-  public String getTitle() {
-    return title;
+  public String getCount() {
+    return count;
   }
 
-  public void setTitle(String title) {
-    this.title = title;
+  public void setCount(String count) {
+    this.count = count;
   }
-
-
-  public String getContent() {
-    return content;
-  }
-
-  public void setContent(String content) {
-    this.content = content;
-  }
-
 
   public String getState() {
     return state;

@@ -1,13 +1,16 @@
-package edu.xhu.lhms.module.activity.vo;
+package edu.xhu.lhms.module.news.vo;
 
 import edu.xhu.lhms.module.common.vo.Search;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime;
 
-public class ActivityVo extends Search {
+public class NewsVo extends Search {
+    private String image;
     private String title;
     private String content;
+
+    private int likeNumber;
     private String state;
     private int userId;
     private String username;
@@ -19,6 +22,47 @@ public class ActivityVo extends Search {
         this.pageSize = this.limit == 0 ? 5 : this.limit;
         this.sort = StringUtils.isBlank(this.sort) ? "id" : this.sort;
         this.direction = StringUtils.isBlank(this.direction) ? "asc" : this.direction;
+    }
+
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getTitle() {
@@ -37,35 +81,11 @@ public class ActivityVo extends Search {
         this.content = content;
     }
 
-    public String getState() {
-        return state;
+    public int getLikeNumber() {
+        return likeNumber;
     }
 
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
+    public void setLikeNumber(int likeNumber) {
+        this.likeNumber = likeNumber;
     }
 }

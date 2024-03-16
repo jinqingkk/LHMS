@@ -1,10 +1,12 @@
 package edu.xhu.lhms.module.activity.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import edu.xhu.lhms.module.common.entity.AbstractEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "activity")
@@ -16,7 +18,9 @@ public class Activity extends AbstractEntity {
   private String content;
   private String state;
   private int userId;
-
+  @Transient
+  @TableField(exist = false)
+  private  String username;
 
 
 
@@ -57,13 +61,19 @@ public class Activity extends AbstractEntity {
     this.state = state;
   }
 
-
-  public Integer getUserId() {
+  public int getUserId() {
     return userId;
   }
 
-  public void setUserId(Integer userId) {
+  public void setUserId(int userId) {
     this.userId = userId;
   }
 
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
 }

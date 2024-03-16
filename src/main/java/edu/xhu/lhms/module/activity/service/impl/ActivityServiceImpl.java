@@ -63,6 +63,8 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public Activity getModelById(int id) {
         Activity activity=activityDao.selectById(id);
+        if(activity!=null)
+           activity.setUsername(userDao.selectById(activity.getUserId()).getUserName());
         return activity;
     }
 
@@ -82,7 +84,9 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public PageInfo<Activity> findModelsBySearch(ActivityVo search) {
-        search.setUserId(userDao.getUserByUserName(search.getUsername()).getId());
+        if(search.getUsername()!=null||search.getUsername()==""){
+            search.setUserId(userDao.getUserByUserName(search.getUsername()).getId());
+        }
         search.initSearch();
         PageHelper.startPage(search.getCurrentPage(), search.getPageSize());
         return new PageInfo<>(Optional

@@ -1,11 +1,13 @@
 package edu.xhu.lhms.module.news.entity;
 
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import edu.xhu.lhms.module.common.entity.AbstractEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "news")
@@ -16,10 +18,12 @@ public class News  extends AbstractEntity {
   private String title;
   private String content;
 
-  private Integer likeNumber;
+  private int likeNumber;
   private String state;
-  private Integer userId;
-
+  private int userId;
+  @Transient
+  @TableField(exist = false)
+  private String username;
 
 
 
@@ -50,16 +54,29 @@ public class News  extends AbstractEntity {
   }
 
 
-
-
-  public Integer getLikeNumber() {
+  public int getLikeNumber() {
     return likeNumber;
   }
 
-  public void setLikeNumber(Integer likeNumber) {
+  public void setLikeNumber(int likeNumber) {
     this.likeNumber = likeNumber;
   }
 
+  public int getUserId() {
+    return userId;
+  }
+
+  public void setUserId(int userId) {
+    this.userId = userId;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
   public String getState() {
     return state;
@@ -69,13 +86,5 @@ public class News  extends AbstractEntity {
     this.state = state;
   }
 
-
-  public Integer getUserId() {
-    return userId;
-  }
-
-  public void setUserId(Integer userId) {
-    this.userId = userId;
-  }
 
 }
