@@ -29,7 +29,7 @@ public class VolunActivityController {
         return volunActivityService.deleteModelById(id);
     }
     @GetMapping(value = "/findActByid/{id}")
-    public VolunActivity getModelById(@PathVariable int id) {
+    public Result<VolunActivity> getModelById(@PathVariable int id) {
         return volunActivityService.getModelById(id);
     }
     @GetMapping(value = "/findActByTitle/{title}")

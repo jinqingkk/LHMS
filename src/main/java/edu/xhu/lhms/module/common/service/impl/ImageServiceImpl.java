@@ -53,7 +53,9 @@ public class ImageServiceImpl implements ImageService {
 		}
 
 		// TODO 判断 multipartFile 尺寸大小是否在 ImageType 范围内
-
+//		if(multipartFile.getSize()>imageType.size){
+//			return  Result.faild("该尺寸大小不匹配");
+//		}
 		// 获取目标文件夹地址
 		String osName = System.getProperty("os.name");
 		String destFolder = String.format("%s%s",
@@ -125,8 +127,8 @@ public class ImageServiceImpl implements ImageService {
 	}
 
 	@Override
-	public Image getModelById(int id) {
-		return imageDao.selectById(id);
+	public Result<Image> getModelById(int id) {
+		return Result.ok(imageDao.selectById(id));
 	}
 
 	@Override

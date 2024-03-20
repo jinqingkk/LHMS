@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
 	public Result<User> login(User model,HttpSession session) {
 		User user=userDao.getIdByUsernameAndPassword(model.getUserName(),MD5Util.getMD5(model.getPassword()));
 		if(user !=null){
-			session.setAttribute("userId",user.getId());
+//			session.setAttribute("userId",user.getId());
 			LoginInfo loginInfo=new LoginInfo();
 			loginInfo.setUserId(user.getId());
 			loginInfo.setCreateDate(LocalDateTime.now());
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
 		LoginInfo loginInfo=loginInfoDao.selectByUserId(id);
 		loginInfo.setUpdateDate(LocalDateTime.now());
 		loginInfoDao.updateById(loginInfo);
-		return null;
+		return Result.ok();
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
 		model.setUpdateDate(LocalDateTime.now());
 		model.setPassword(MD5Util.getMD5(model.getPassword()));
 
-//		// 处理images
+		// 处理images
 //		model.getImages().stream().forEach(item -> {
 //			item.setSubject(
 //					String.format("%s%s", ImageType.PROFILE.name, model.getId()));
@@ -99,11 +99,12 @@ public class UserServiceImpl implements UserService {
 		if (temp != null&& temp.getId()!=model.getId()) {
 			return Result.faild("用户名重复。");
 		}
-		model.setPassword(MD5Util.getMD5(model.getPassword()));
+
 		User tempUser=userDao.selectById(model.getId());
-		if(model.getPassword()!=null&&model.getPassword()!=tempUser.getPassword()){
-			tempUser.setPassword(model.getPassword());
-		}
+//		if(model.getPassword()!=null&&model.getPassword()!=tempUser.getPassword()){
+//			model.setPassword(MD5Util.getMD5(model.getPassword()));
+//			tempUser.setPassword(model.getPassword());
+//		}
 		if(model.getUserName()!=null&&model.getUserName().compareTo(tempUser.getUserName())!=0){
 			tempUser.setUserName(model.getUserName());
 		}
@@ -119,17 +120,20 @@ public class UserServiceImpl implements UserService {
 		tempUser.setUpdateDate(LocalDateTime.now());
 
 		userDao.updateById(tempUser);
+        // 处理images
+		if(model.getImages()!=null){
+			imageDao.deleteImagesBySubject(
+					String.format("%s%s", ImageType.PROFILE.name, model.getId()));
+			model.getImages().stream().forEach(item -> {
+				item.setSubject(
+						String.format("%s%s", ImageType.PROFILE.name, model.getId()));
+				item.setCreateDate(LocalDateTime.now());
+				item.setUpdateDate(LocalDateTime.now());
+				imageDao.insert(item);
+			});
+		}
 
-		// 处理images
-//		imageDao.deleteImagesBySubject(
-//				String.format("%s%s", ImageType.PROFILE.name, model.getId()));
-//		model.getImages().stream().forEach(item -> {
-//			item.setSubject(
-//					String.format("%s%s", ImageType.PROFILE.name, model.getId()));
-//			item.setCreateDate(LocalDateTime.now());
-//			item.setUpdateDate(LocalDateTime.now());
-//			imageDao.insert(item);
-//		});
+
 		return Result.ok(tempUser);
 	}
 
@@ -142,24 +146,25 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public Result<Object> deleteModelById(int id) {
-		userDao.deleteById(id);
-		imageDao.deleteImagesBySubject(
-				String.format("%s%s", ImageType.PROFILE.name, id));
-		return Result.ok(id);
+
+//		imageDao.deleteImagesBySubject(
+//				String.format("%s%s", ImageType.PROFILE.name, id));
+		return Result.ok(userDao.deleteById(id));
 	}
 
 	@Override
 	@Transactional
-	public User getModelById(int id) {
+	public Result<User> getModelById(int id) {
 		User user=userDao.selectById(id);
 		if (user != null) {
-			List<Image> images = Optional
-					.ofNullable(imageDao.getImagesBySubject(
-							String.format("%s%s", ImageType.PROFILE.name, user.getId())))
-					.orElse(Collections.emptyList());
-			user.setImages(images);
+//			List<Image> images = Optional
+//					.ofNullable(imageDao.getImagesBySubject(
+//							String.format("%s%s", ImageType.PROFILE.name, user.getId())))
+//					.orElse(Collections.emptyList());
+//			user.setImages(images);
+			return Result.ok(user);
 		}
-		return user;
+		return Result.faild();
 	}
 
 	@Override
@@ -226,5 +231,30 @@ public class UserServiceImpl implements UserService {
 		}
 
 		return Result.ok(checkCode);
+	}
+
+	@Override
+	public Result<PageInfo<User>> findUsersByIdentity(UserVo search) {
+		search.initSearch();
+		PageHelper.startPage(search.getCurrentPage(), search.getPageSize());
+		return Result.ok(new PageInfo<>(Optional
+				.ofNullable(userDao.findUsersByIdentity(search))
+				.orElse(Collections.emptyList())));
+	}
+
+	@Override
+	public Result<Object> adminToCommon(int id) {
+		if(userDao.adminToCommon(id)){
+			return Result.ok();
+		}
+		return  Result.faild();
+	}
+
+	@Override
+	public Result<Object> commonToAdmin(int id) {
+		if(userDao.commonToAdmin(id)){
+			return Result.ok();
+		}
+		return  Result.faild();
 	}
 }

@@ -8,15 +8,19 @@ public class UserVo extends Search {
     String userName;
     String gender;
     String rellname;
-    String phoneNumber;
-    int page;
-    int limit;
-    public void initSearch() {
-        this.currentPage = this.page == 0 ? 1 : this.page;
-        this.pageSize = this.limit == 0 ? 5 : this.limit;
-        this.sort = StringUtils.isBlank(this.sort) ? "id" : this.sort;
-        this.direction = StringUtils.isBlank(this.direction) ? "asc" : this.direction;
-    }
+    private  String phoneNumber;
+    private String email;
+    private String idNumber;
+
+    private String identity;
+//    int page;
+//    int limit;
+//    public void initSearch() {
+//        this.currentPage = this.page == 0 ? 1 : this.page;
+//        this.pageSize = this.limit == 0 ? 5 : this.limit;
+//        this.sort = StringUtils.isBlank(this.sort) ? "id" : this.sort;
+//        this.direction = StringUtils.isBlank(this.direction) ? "asc" : this.direction;
+//    }
     public int getId() {
         return id;
     }
@@ -41,6 +45,14 @@ public class UserVo extends Search {
         this.gender = gender;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getRellname() {
         return rellname;
     }
@@ -55,5 +67,21 @@ public class UserVo extends Search {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(String idNumber) {
+        this.idNumber = idNumber;
+    }
+
+    public String getIdentity() {
+        return identity;
+    }
+
+    public void setIdentity(String identity) {
+        this.identity = identity;
     }
 }

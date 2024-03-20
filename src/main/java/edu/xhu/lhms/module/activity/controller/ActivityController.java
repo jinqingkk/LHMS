@@ -33,7 +33,7 @@ public class ActivityController {
         return activityService.deleteModelById(id);
     }
     @GetMapping(value = "/findActByid/{id}")
-    public Activity getModelById(@PathVariable int id) {
+    public Result<Activity> getModelById(@PathVariable int id) {
         return activityService.getModelById(id);
     }
     @GetMapping(value = "/findActByTitle/{title}")

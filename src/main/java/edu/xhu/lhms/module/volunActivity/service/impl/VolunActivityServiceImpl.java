@@ -3,6 +3,7 @@ package edu.xhu.lhms.module.volunActivity.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import edu.xhu.lhms.module.account.dao.UserDao;
+import edu.xhu.lhms.module.account.entity.User;
 import edu.xhu.lhms.module.common.vo.Result;
 import edu.xhu.lhms.module.common.vo.Search;
 import edu.xhu.lhms.module.volunActivity.dao.VolunActivityDao;
@@ -60,11 +61,11 @@ public class VolunActivityServiceImpl implements VolunActivityService {
     }
 
     @Override
-    public VolunActivity getModelById(int id) {
+    public Result<VolunActivity> getModelById(int id) {
         VolunActivity volunActivity=volunActivityDao.selectById(id);
         if (volunActivity!=null)
             volunActivity.setUsername(userDao.selectById(volunActivity.getUserId()).getUserName());
-        return null;
+        return Result.ok(volunActivity);
     }
 
     @Override

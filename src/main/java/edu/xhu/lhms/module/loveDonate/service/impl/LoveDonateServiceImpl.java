@@ -57,11 +57,11 @@ public class LoveDonateServiceImpl implements LoveDonateService {
     }
 
     @Override
-    public LovedonateInfo getModelById(int id) {
+    public Result<LovedonateInfo> getModelById(int id) {
         LovedonateInfo lovedonateInfo=loveDonateDao.selectById(id);
         if (lovedonateInfo!=null)
             lovedonateInfo.setUsername(userDao.selectById(lovedonateInfo.getUserId()).getUserName());
-        return lovedonateInfo;
+        return Result.ok(lovedonateInfo);
     }
 
     @Override

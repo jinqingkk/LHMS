@@ -29,7 +29,7 @@ public class LoveDonateController {
         return loveDonateService.deleteModelById(id);
     }
     @GetMapping(value = "/findActByid/{id}")
-    public LovedonateInfo getModelById(@PathVariable int id) {
+    public Result<LovedonateInfo> getModelById(@PathVariable int id) {
         return loveDonateService.getModelById(id);
     }
     @GetMapping(value = "/findActByTitle/{donaThings}")

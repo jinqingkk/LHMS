@@ -25,4 +25,10 @@ public interface UserService extends ModelService<User> {
 	Result<User> findUserByOpenId(User model);
 
 	Result<User> sendCheckCode(User model);
+
+	Result<PageInfo<User>> findUsersByIdentity(UserVo search);
+
+	Result<Object> adminToCommon(int id);
+
+	Result<Object> commonToAdmin(int id);
 }

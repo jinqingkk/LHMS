@@ -57,11 +57,11 @@ public class OldDonateServiceImpl implements OldDonateService {
     }
 
     @Override
-    public OlddonateInfo getModelById(int id) {
+    public Result<OlddonateInfo> getModelById(int id) {
         OlddonateInfo olddonateInfo=oldDonateDao.selectById(id);
         if (olddonateInfo!=null)
             olddonateInfo.setUsername(userDao.selectById(olddonateInfo.getUserId()).getUserName());
-        return olddonateInfo;
+        return Result.ok(olddonateInfo);
     }
 
     @Override

@@ -71,11 +71,11 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public News getModelById(int id) {
+    public Result<News> getModelById(int id) {
         News news=newsDao.selectById(id);
         if (news!=null)
             news.setUsername(userDao.selectById(news.getUserId()).getUserName());
-        return news;
+        return Result.ok(news);
     }
 
     @Override

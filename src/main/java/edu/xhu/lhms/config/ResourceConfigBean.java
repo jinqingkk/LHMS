@@ -12,7 +12,7 @@ public class ResourceConfigBean {
 	private String resourcePath;
 	@Value("${resource.path.pattern}")
 	private String resourcePathPattern;
-	@Value("${resource.location.window}")
+	@Value("F:/static/")
 	private String resourceLocationWindow;
 	@Value("${resource.location.linux}")
 	private String resourceLocationLinux;

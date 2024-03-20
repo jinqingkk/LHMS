@@ -15,7 +15,8 @@ import javax.persistence.Transient;
 public class LovedonateInfo  extends AbstractEntity {
 
   private String donaThings;
-
+  private String count;
+  private int needId;
   private String state;
   private int userId;
   @Transient
@@ -32,8 +33,21 @@ public class LovedonateInfo  extends AbstractEntity {
     this.donaThings = donaThings;
   }
 
+  public String getCount() {
+    return count;
+  }
 
+  public void setCount(String count) {
+    this.count = count;
+  }
 
+  public int getNeedId() {
+    return needId;
+  }
+
+  public void setNeedId(int needId) {
+    this.needId = needId;
+  }
 
   public String getState() {
     return state;

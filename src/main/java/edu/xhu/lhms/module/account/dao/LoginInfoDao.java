@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface LoginInfoDao  extends BaseMapper<LoginInfo> {
-    @Select("select * from login_info where user_id = #{id} and create_time = update_time limit 1")
+    @Select("select * from login_info where user_id = #{id} and create_date = update_date order by id desc limit 1")
     LoginInfo selectByUserId(@Param("id") int id);
 }

@@ -11,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import javax.websocket.server.PathParam;
 
 //@CrossOrigin //解决跨域问题
 @RestController
@@ -23,7 +22,7 @@ public class UserController {
 	/**
 	 * 127.0.0.1/account/user ---- post
 	 */
-	@PostMapping(value = "/user", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/addUser", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Result<User> insertModel(@RequestBody User model) {
 		return userService.insertModel(model);
 	}
@@ -41,24 +40,34 @@ public class UserController {
 	}
 	@GetMapping(value = "/loginout/{id}")
 	public Result<Object> loginout(@PathVariable int id){return userService.loginout(id);}
-	@PutMapping(value = "/user", consumes = MediaType.APPLICATION_JSON_VALUE)
+
+	@GetMapping(value = "/adminToCommon/{id}")
+	public Result<Object> adminToCommon(@PathVariable int id){return userService.adminToCommon(id);}
+	@GetMapping(value = "/commonToAdmin/{id}")
+	public Result<Object> commonToAdmin(@PathVariable int id){return userService.commonToAdmin(id);}
+
+	@PutMapping(value = "/updateUser", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Result<User> updateModel(@RequestBody User model) {
 		return userService.updateModel(model);
 	}
-	@DeleteMapping(value = "/user/{id}")
+	@DeleteMapping(value = "/deleteUserByid/{id}")
 	public Result<Object> deleteModelById(@PathVariable int id) {
 		return userService.deleteModelById(id);
 	}
-	@GetMapping(value = "/user/{id}")
-	public User getModelById(@PathVariable int id) {
+	@GetMapping(value = "/getUserById/{id}")
+	public Result<User> getModelById(@PathVariable int id) {
 		return userService.getModelById(id);
 	}
 	@GetMapping(value = "/findUser/{userName}")
 	public Result<User> getModelByUserName(@PathVariable String userName) {
 		return userService.getModelByUserName(userName);
 	}
-	@PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/getUsers", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public PageInfo<User> getModelsBySearch(@RequestBody UserVo search) {
 		return userService.findModelsBySearch(search);
+	}
+	@PostMapping(value = "/findUsersByIdentity", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Result<PageInfo<User>> findUsersByIdentity(@RequestBody UserVo search) {
+		return userService.findUsersByIdentity(search);
 	}
 }

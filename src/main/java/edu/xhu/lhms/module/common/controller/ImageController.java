@@ -30,7 +30,7 @@ public class ImageController {
 	@PostMapping(value = "/image/{imageTypeName}")
 	public Result<String> uploadImage(
 			@PathVariable String imageTypeName,
-			@RequestParam MultipartFile file) {
+			@RequestParam("file") MultipartFile file) {
 		return imageService.uploadImage(imageTypeName, file);
 	}
 
@@ -62,7 +62,7 @@ public class ImageController {
 	 * 127.0.0.1/api/common/image/1 ---- get
 	 */
 	@GetMapping(value = "/image/{id}")
-	public Image getModelById(@PathVariable int id) {
+	public Result<Image> getModelById(@PathVariable int id) {
 		return imageService.getModelById(id);
 	}
 

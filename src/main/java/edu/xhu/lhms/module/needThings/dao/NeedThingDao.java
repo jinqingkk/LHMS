@@ -41,6 +41,6 @@ public interface NeedThingDao extends BaseMapper<NeedThing> {
             + "</choose>"
             + "</script>")
     List<NeedThing> getActsBySearch(NeedThingVo search);
-    @Select("select * from need_thing where item = #{item")
+    @Select("select * from need_thing where item = #{item} ")
     NeedThing selectByItem(String item);
 }

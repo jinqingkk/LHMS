@@ -29,7 +29,7 @@ public class NeedThingController {
         return needThingService.deleteModelById(id);
     }
     @GetMapping(value = "/findActByid/{id}")
-    public NeedThing getModelById(@PathVariable int id) {
+    public Result<NeedThing> getModelById(@PathVariable int id) {
         return needThingService.getModelById(id);
     }
     @GetMapping(value = "/findActByItem/{item}")

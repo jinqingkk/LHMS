@@ -15,7 +15,7 @@ public interface ModelService<T> {
 
 	Result<Object> deleteModelById(int id);
 
-	T getModelById(int id);
+	Result<T> getModelById(int id);
 
 	PageInfo<T> getModelsBySearch(Search search);
 }

@@ -60,11 +60,11 @@ public class NeedThingServiceImpl implements NeedThingService {
     }
 
     @Override
-    public NeedThing getModelById(int id) {
+    public Result<NeedThing> getModelById(int id) {
         NeedThing needThing=needThingDao.selectById(id);
         if (needThing!=null)
             needThing.setUsername(userDao.selectById(needThing.getUserId()).getUserName());
-        return needThing;
+        return Result.ok(needThing);
     }
 
     @Override

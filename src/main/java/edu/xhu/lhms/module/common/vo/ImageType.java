@@ -16,9 +16,9 @@ public enum ImageType {
 	;
 
 	public String name;
-	private int width;
-	private int height;
-	private int size;
+	public int width;
+	public int height;
+	public int size;
 
 	ImageType(String name, int width, int height, int size) {
 		this.name = name;

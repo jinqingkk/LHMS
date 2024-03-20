@@ -3,6 +3,7 @@ package edu.xhu.lhms.module.activity.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import edu.xhu.lhms.module.account.dao.UserDao;
+import edu.xhu.lhms.module.account.entity.User;
 import edu.xhu.lhms.module.activity.dao.ActivityDao;
 import edu.xhu.lhms.module.activity.entity.Activity;
 import edu.xhu.lhms.module.activity.service.ActivityService;
@@ -61,11 +62,11 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public Activity getModelById(int id) {
+    public Result<Activity> getModelById(int id) {
         Activity activity=activityDao.selectById(id);
         if(activity!=null)
            activity.setUsername(userDao.selectById(activity.getUserId()).getUserName());
-        return activity;
+        return Result.ok(activity);
     }
 
     @Override

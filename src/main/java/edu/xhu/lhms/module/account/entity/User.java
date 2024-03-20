@@ -19,7 +19,7 @@ public class User extends AbstractEntity {
 	private String password;
 	@Transient
 	@TableField(exist = false)
-	private List<Image> userImg;
+	private List<Image> images;
 
 //	@TableField("open_id")
 	private String openId;
@@ -101,11 +101,11 @@ public class User extends AbstractEntity {
 	}
 
 	public List<Image> getImages() {
-		return userImg;
+		return images;
 	}
 
 	public void setImages(List<Image> images) {
-		this.userImg = images;
+		this.images = images;
 	}
 
 	public String getOpenId() {

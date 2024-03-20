@@ -32,7 +32,7 @@ public class NewsController {
     }
 
     @GetMapping(value = "/findActByid/{id}")
-    public News getModelById(@PathVariable int id) {
+    public Result<News> getModelById(@PathVariable int id) {
         return newsService.getModelById(id);
     }
 
