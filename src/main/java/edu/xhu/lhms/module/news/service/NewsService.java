@@ -7,11 +7,13 @@ import edu.xhu.lhms.module.news.entity.News;
 import edu.xhu.lhms.module.news.entity.NewsLike;
 import edu.xhu.lhms.module.news.vo.NewsVo;
 
-public interface NewsService extends ModelService<News> {
+public interface NewsService extends ModelService<News,NewsVo> {
 
-    PageInfo<News> findModelsBySearch(NewsVo search);
+    Result<PageInfo<News>> findModelsBySearch(NewsVo search);
 
     Result<NewsLike> getLike(int id, int userId);
 
     Result<NewsLike> cancelLike(int id, int userId);
+
+    Result<News> getModelByTitle(String title);
 }

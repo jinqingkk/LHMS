@@ -70,7 +70,7 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public PageInfo<Activity> getModelsBySearch(Search search) {
+    public PageInfo<Activity> getModelsBySearch(ActivityVo search) {
         return null;
     }
 

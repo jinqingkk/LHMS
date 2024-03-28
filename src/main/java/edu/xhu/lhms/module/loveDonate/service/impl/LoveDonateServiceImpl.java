@@ -65,7 +65,7 @@ public class LoveDonateServiceImpl implements LoveDonateService {
     }
 
     @Override
-    public PageInfo<LovedonateInfo> getModelsBySearch(Search search) {
+    public PageInfo<LovedonateInfo> getModelsBySearch(LoveDonateVo search) {
         return null;
     }
 

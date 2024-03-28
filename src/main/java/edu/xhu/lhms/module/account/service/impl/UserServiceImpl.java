@@ -7,6 +7,7 @@ import edu.xhu.lhms.module.account.dao.UserDao;
 import edu.xhu.lhms.module.account.entity.LoginInfo;
 import edu.xhu.lhms.module.account.entity.User;
 import edu.xhu.lhms.module.account.service.UserService;
+import edu.xhu.lhms.module.account.vo.LoginInfoVo;
 import edu.xhu.lhms.module.account.vo.UserVo;
 import edu.xhu.lhms.module.common.dao.ImageDao;
 import edu.xhu.lhms.module.common.entity.Image;
@@ -45,16 +46,19 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public Result<User> login(User model,HttpSession session) {
 		User user=userDao.getIdByUsernameAndPassword(model.getUserName(),MD5Util.getMD5(model.getPassword()));
+		LoginInfo loginInfo=new LoginInfo();
+		loginInfo.setUsername(model.getUserName());
+		loginInfo.setUserId(0);
+		loginInfo.setCreateDate(LocalDateTime.now());
+		loginInfo.setUpdateDate(LocalDateTime.now());
 		if(user !=null){
-//			session.setAttribute("userId",user.getId());
-			LoginInfo loginInfo=new LoginInfo();
 			loginInfo.setUserId(user.getId());
-			loginInfo.setCreateDate(LocalDateTime.now());
-			loginInfo.setUpdateDate(LocalDateTime.now());
+			loginInfo.setDiscription("登录成功");
 			loginInfoDao.insert(loginInfo);
-			//session.setAttribute("userLoginTime",loginInfo.getCreateDate());
 			return Result.ok(user);
 		}
+		loginInfo.setDiscription("登录失败");
+		loginInfoDao.insert(loginInfo);
 		return Result.faild("用户名或密码错误！");
 	}
 
@@ -169,7 +173,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
-	public PageInfo<User> getModelsBySearch(Search search) {
+	public PageInfo<User> getModelsBySearch(UserVo search) {
 		search.initSearch();
 		PageHelper.startPage(search.getCurrentPage(), search.getPageSize());
 		return new PageInfo<>(Optional
@@ -256,5 +260,31 @@ public class UserServiceImpl implements UserService {
 			return Result.ok();
 		}
 		return  Result.faild();
+	}
+
+	@Override
+	public Result<List<User>> getUsernameList() {
+		List<User> userList=userDao.getUsernameList();
+		return Result.ok(userList);
+	}
+
+	@Override
+	public Result<Object> deleteLoginInfoById(int id) {
+		return Result.ok(loginInfoDao.deleteById(id));
+	}
+
+	@Override
+	public Result<PageInfo<LoginInfo>> findLoginInfos(LoginInfoVo search) {
+		search.initSearch();
+		PageHelper.startPage(search.getCurrentPage(), search.getPageSize());
+		PageInfo<LoginInfo> pageInfo = new PageInfo<LoginInfo>(Optional
+				.ofNullable(loginInfoDao.getLoginInfosBySearch(search))
+				.orElse(Collections.emptyList()));
+//		pageInfo.getList().stream().forEach(item -> {
+//			if(item.getUserId()!=0){
+//				item.setUsername(userDao.selectById(item.getUserId()).getUserName());
+//			}
+//		});
+		return Result.ok(pageInfo);
 	}
 }

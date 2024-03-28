@@ -7,7 +7,7 @@ import edu.xhu.lhms.module.common.vo.Search;
 /**
  * ModelService
  */
-public interface ModelService<T> {
+public interface ModelService<T,S> {
 
 	Result<T> insertModel(T model);
 
@@ -17,5 +17,5 @@ public interface ModelService<T> {
 
 	Result<T> getModelById(int id);
 
-	PageInfo<T> getModelsBySearch(Search search);
+	PageInfo<T> getModelsBySearch(S search);
 }

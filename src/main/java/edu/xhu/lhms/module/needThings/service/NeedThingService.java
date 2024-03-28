@@ -6,7 +6,7 @@ import edu.xhu.lhms.module.common.vo.Result;
 import edu.xhu.lhms.module.needThings.entity.NeedThing;
 import edu.xhu.lhms.module.needThings.vo.NeedThingVo;
 
-public interface NeedThingService extends ModelService<NeedThing> {
+public interface NeedThingService extends ModelService<NeedThing,NeedThingVo> {
 
     PageInfo<NeedThing> findModelsBySearch(NeedThingVo search);
 

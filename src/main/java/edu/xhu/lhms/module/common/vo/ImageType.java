@@ -11,8 +11,11 @@ package edu.xhu.lhms.module.common.vo;
 public enum ImageType {
 	TEST("test", 100, 100, 2048),
 	PROFILE("profile", 500, 500, 2048),
-	FOOD("food", 500, 500, 2048),
-	ROOM("room", 500, 500, 2048)
+	NEWS("news", 500, 500, 2048),
+	VOLUNACT("volunAct", 500, 500, 2048),
+	OLDDONATE("oldDonate", 500, 500, 2048),
+	LOVEDONATE("loveDonate", 500, 500, 2048),
+	NEEDTHNG("needthing", 500, 500, 2048)
 	;
 
 	public String name;

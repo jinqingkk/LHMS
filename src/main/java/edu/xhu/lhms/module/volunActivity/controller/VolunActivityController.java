@@ -9,13 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/volunActivity")
 public class VolunActivityController {
 
     @Autowired
     private VolunActivityService volunActivityService;
-
     @PostMapping(value = "/insert", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Result<VolunActivity> insertModel(@RequestBody VolunActivity model) {
         return volunActivityService.insertModel(model);
@@ -36,8 +37,12 @@ public class VolunActivityController {
     public Result<VolunActivity> getModelByTitle(@PathVariable String title) {
         return volunActivityService.getModelByTitle(title);
     }
-    @PostMapping(value = "/findDonas", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public PageInfo<VolunActivity> getModelsBySearch(@RequestBody VolunActivityVo search) {
+    @GetMapping(value = "/getTitleList")
+    public Result<List<VolunActivity>> getTitleList() {
+        return volunActivityService.getTitleList();
+    }
+    @PostMapping(value = "/findVunlunActs", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Result<PageInfo<VolunActivity>> getModelsBySearch(@RequestBody VolunActivityVo search) {
         return volunActivityService.findModelsBySearch(search);
     }
 }

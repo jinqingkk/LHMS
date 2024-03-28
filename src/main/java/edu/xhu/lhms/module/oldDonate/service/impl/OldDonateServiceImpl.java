@@ -65,7 +65,7 @@ public class OldDonateServiceImpl implements OldDonateService {
     }
 
     @Override
-    public PageInfo<OlddonateInfo> getModelsBySearch(Search search) {
+    public PageInfo<OlddonateInfo> getModelsBySearch(OldDonateVo search) {
         return null;
     }
 

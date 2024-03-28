@@ -68,7 +68,7 @@ public class NeedThingServiceImpl implements NeedThingService {
     }
 
     @Override
-    public PageInfo<NeedThing> getModelsBySearch(Search search) {
+    public PageInfo<NeedThing> getModelsBySearch(NeedThingVo search) {
         return null;
     }
 

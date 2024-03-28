@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @Date 2023/6/12 13:47
  */
 @RestController
-@RequestMapping("/api/common")
+@RequestMapping("/image")
 public class ImageController {
 
 	@Autowired
@@ -27,7 +27,7 @@ public class ImageController {
 	/**
 	 * 127.0.0.1/api/common/image/timeLine ---- post
 	 */
-	@PostMapping(value = "/image/{imageTypeName}")
+	@PostMapping(value = "/upload/{imageTypeName}")
 	public Result<String> uploadImage(
 			@PathVariable String imageTypeName,
 			@RequestParam("file") MultipartFile file) {
@@ -37,7 +37,7 @@ public class ImageController {
 	/**
 	 * 127.0.0.1/api/common/image ---- post
 	 */
-	@PostMapping(value = "/image", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/insert", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Result<Image> insertModel(@RequestBody Image model) {
 		return imageService.insertModel(model);
 	}
@@ -45,7 +45,7 @@ public class ImageController {
 	/**
 	 * 127.0.0.1/api/common/image ---- put
 	 */
-	@PutMapping(value = "/image", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Result<Image> updateModel(@RequestBody Image model) {
 		return imageService.updateModel(model);
 	}
@@ -53,7 +53,7 @@ public class ImageController {
 	/**
 	 * 127.0.0.1/api/common/image/1 ---- delete
 	 */
-	@DeleteMapping(value = "/image/{id}")
+	@DeleteMapping(value = "/deleteById/{id}")
 	public Result<Object> deleteModelById(@PathVariable int id) {
 		return imageService.deleteModelById(id);
 	}
@@ -61,7 +61,7 @@ public class ImageController {
 	/**
 	 * 127.0.0.1/api/common/image/1 ---- get
 	 */
-	@GetMapping(value = "/image/{id}")
+	@GetMapping(value = "/getImageById/{id}")
 	public Result<Image> getModelById(@PathVariable int id) {
 		return imageService.getModelById(id);
 	}
@@ -69,7 +69,7 @@ public class ImageController {
 	/**
 	 * 127.0.0.1/api/common/images ---- post
 	 */
-	@PostMapping(value = "/images", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/getImages", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public PageInfo<Image> getModelsBySearch(@RequestBody Search search) {
 		return imageService.getModelsBySearch(search);
 	}

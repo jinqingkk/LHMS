@@ -15,17 +15,29 @@ public interface VolunActivityDao extends BaseMapper<VolunActivity> {
     @Select("<script>"
             + "select * from volun_activity "
             + "<where> "
-            + "<if test='title != \"\" and title != null'>"
-            + " and (title like '%${title}%' ) "
+            + "<if test='title  != \"\" and title != null'>"
+            + " and (title like concat('%',#{title},'%') ) "
             + "</if>"
-            + "<if test='content != \"\" and content != null'>"
-            + " and (content like '%${content}%' ) "
+            + "<if test='username  != \"\" and username != null and userId != 0'>"
+            + " and (user_id = #{userId} ) "
             + "</if>"
-            + "<if test='state != \"\" and state != null'>"
-            + " and (state like '%${state}%' ) "
+            + "<if test='username  != \"\" and username != null and userId  == 0'>"
+            + " and (user_id = 0 ) "
+            + "</if>"
+            + "<if test='startDate != null'>"
+            + " and (start_date &gt;= #{startDate} ) "
+            + "</if>"
+            + "<if test='endDate != null'>"
+            + " and (end_date &lt;= #{endDate} ) "
+            + "</if>"
+            + "<if test='region  != \"\" and region != null'>"
+            + " and (region like concat('%',#{region},'%') ) "
+            + "</if>"
+            + "<if test='state  != \"\" and state != null'>"
+            + " and (state = #{state} ) "
             + "</if>"
             + "<if test=' createDate != null'>"
-            + " and (create_Date like '%${createDate}%' ) "
+            + " and (create_Date &gt;= #{createDate} ) "
             + "</if>"
             + "</where>"
             + "<choose>"
@@ -38,6 +50,11 @@ public interface VolunActivityDao extends BaseMapper<VolunActivity> {
             + "</choose>"
             + "</script>")
     List<VolunActivity> getActsBySearch(VolunActivityVo search);
-    @Select("select * from volun_activity where title = #{title")
+    @Select("select * from volun_activity where title = #{title} ")
     VolunActivity selectByTitle(String title);
+    @Select(" select max(id) from volun_activity ")
+    int getMaxId();
+
+    @Select("select id ,title from volun_activity ")
+    List<VolunActivity> getTitleList();
 }

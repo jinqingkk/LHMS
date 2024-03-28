@@ -6,7 +6,7 @@ import edu.xhu.lhms.module.common.vo.Result;
 import edu.xhu.lhms.module.oldDonate.entity.OlddonateInfo;
 import edu.xhu.lhms.module.oldDonate.vo.OldDonateVo;
 
-public interface OldDonateService extends ModelService<OlddonateInfo> {
+public interface OldDonateService extends ModelService<OlddonateInfo,OldDonateVo> {
     Result<OlddonateInfo> getModelByDonaThings(String donaThings);
 
     PageInfo<OlddonateInfo> findModelsBySearch(OldDonateVo search);

@@ -2,8 +2,10 @@ package edu.xhu.lhms.module.account.controller;
 
 
 import com.github.pagehelper.PageInfo;
+import edu.xhu.lhms.module.account.entity.LoginInfo;
 import edu.xhu.lhms.module.account.entity.User;
 import edu.xhu.lhms.module.account.service.UserService;
+import edu.xhu.lhms.module.account.vo.LoginInfoVo;
 import edu.xhu.lhms.module.account.vo.UserVo;
 import edu.xhu.lhms.module.common.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 //@CrossOrigin //解决跨域问题
 @RestController
@@ -62,6 +65,10 @@ public class UserController {
 	public Result<User> getModelByUserName(@PathVariable String userName) {
 		return userService.getModelByUserName(userName);
 	}
+	@GetMapping(value = "/getUsernameList")
+	public Result<List<User>> getUsernameList() {
+		return userService.getUsernameList();
+	}
 	@PostMapping(value = "/getUsers", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public PageInfo<User> getModelsBySearch(@RequestBody UserVo search) {
 		return userService.findModelsBySearch(search);
@@ -69,5 +76,14 @@ public class UserController {
 	@PostMapping(value = "/findUsersByIdentity", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Result<PageInfo<User>> findUsersByIdentity(@RequestBody UserVo search) {
 		return userService.findUsersByIdentity(search);
+	}
+	// 针对登录日志
+	@DeleteMapping(value = "/delete/{id}")
+	public Result<Object> deleteLoginInfoById(@PathVariable int id) {
+		return userService.deleteLoginInfoById(id);
+	}
+	@PostMapping(value = "/findLoginInfos", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Result<PageInfo<LoginInfo>> findLoginInfos(@RequestBody LoginInfoVo search) {
+		return userService.findLoginInfos(search);
 	}
 }

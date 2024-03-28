@@ -18,7 +18,7 @@ public class NewsController {
     @Autowired
     private NewsService newsService;
 
-    @PostMapping(value = "/insert", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/add", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Result<News> insertModel(@RequestBody News model) {
         return newsService.insertModel(model);
     }
@@ -31,9 +31,13 @@ public class NewsController {
         return newsService.deleteModelById(id);
     }
 
-    @GetMapping(value = "/findActByid/{id}")
+    @GetMapping(value = "/findNewsByid/{id}")
     public Result<News> getModelById(@PathVariable int id) {
         return newsService.getModelById(id);
+    }
+    @GetMapping(value = "/findNewsByTitle/{title}")
+    public Result<News> getModelByTitle(@PathVariable String title) {
+        return newsService.getModelByTitle(title);
     }
 
     @GetMapping(value = "/getLike")
@@ -46,7 +50,7 @@ public class NewsController {
     }
 
     @PostMapping(value = "/findNews", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public PageInfo<News> getModelsBySearch(@RequestBody NewsVo search) {
+    public Result<PageInfo<News>> getModelsBySearch(@RequestBody NewsVo search) {
         return newsService.findModelsBySearch(search);
     }
 }

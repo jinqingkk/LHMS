@@ -1,12 +1,17 @@
 package edu.xhu.lhms.module.news.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import edu.xhu.lhms.module.common.entity.Image;
 import edu.xhu.lhms.module.common.vo.Search;
-import org.apache.commons.lang3.StringUtils;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class NewsVo extends Search {
-    private String image;
+    private List<Image> image;
     private String title;
     private String content;
 
@@ -14,15 +19,15 @@ public class NewsVo extends Search {
     private String state;
     private int userId;
     private String username;
-    private LocalDateTime createDate;
-    int page;
-    int limit;
-    public void initSearch() {
-        this.currentPage = this.page == 0 ? 1 : this.page;
-        this.pageSize = this.limit == 0 ? 5 : this.limit;
-        this.sort = StringUtils.isBlank(this.sort) ? "id" : this.sort;
-        this.direction = StringUtils.isBlank(this.direction) ? "asc" : this.direction;
-    }
+    private  String region;
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime startDate;
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime endDate;
 
 
     public String getState() {
@@ -49,19 +54,35 @@ public class NewsVo extends Search {
         this.username = username;
     }
 
-    public LocalDateTime getCreateDate() {
-        return createDate;
+    public String getRegion() {
+        return region;
     }
 
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
+    public void setRegion(String region) {
+        this.region = region;
     }
 
-    public String getImage() {
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
+    }
+
+    public List<Image> getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(List<Image> image) {
         this.image = image;
     }
 

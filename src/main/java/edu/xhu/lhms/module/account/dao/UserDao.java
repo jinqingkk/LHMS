@@ -121,4 +121,7 @@ public interface UserDao extends BaseMapper<User> {
 	boolean adminToCommon(int id);
 	@Update(" update user_info set identity = 2 where id = #{id} ")
 	boolean commonToAdmin(int id);
+
+	@Select("select id,user_name from user_info ")
+    List<User> getUsernameList();
 }
