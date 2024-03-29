@@ -2,13 +2,13 @@ package edu.xhu.lhms.module.news.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.xhu.lhms.module.Feedback.entity.Feedback;
 import edu.xhu.lhms.module.account.dao.UserDao;
 import edu.xhu.lhms.module.account.entity.User;
 import edu.xhu.lhms.module.common.dao.ImageDao;
 import edu.xhu.lhms.module.common.entity.Image;
 import edu.xhu.lhms.module.common.vo.ImageType;
 import edu.xhu.lhms.module.common.vo.Result;
-import edu.xhu.lhms.module.common.vo.Search;
 
 import edu.xhu.lhms.module.news.dao.NewsDao;
 import edu.xhu.lhms.module.news.entity.News;
@@ -17,11 +17,9 @@ import edu.xhu.lhms.module.news.service.NewsService;
 import edu.xhu.lhms.module.news.dao.NewsLikeDao;
 import edu.xhu.lhms.module.news.vo.NewsVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -118,7 +116,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public PageInfo<News> getModelsBySearch(NewsVo search) {
+    public Result<PageInfo<Feedback>> getModelsBySearch(NewsVo search) {
         return null;
     }
 

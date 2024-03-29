@@ -1,7 +1,7 @@
 package edu.xhu.lhms.module.permission.service.impl;
 
 import com.github.pagehelper.PageInfo;
-import edu.xhu.lhms.module.account.entity.User;
+import edu.xhu.lhms.module.Feedback.entity.Feedback;
 import edu.xhu.lhms.module.common.vo.Result;
 import edu.xhu.lhms.module.common.vo.Search;
 import edu.xhu.lhms.module.permission.dao.PermissionDao;
@@ -69,7 +69,7 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public PageInfo<Permission> getModelsBySearch(Search search) {
+    public Result<PageInfo<Feedback>> getModelsBySearch(Search search) {
         return null;
     }
 

@@ -2,6 +2,7 @@ package edu.xhu.lhms.module.common.controller;
 
 import com.github.pagehelper.PageInfo;
 
+import edu.xhu.lhms.module.Feedback.entity.Feedback;
 import edu.xhu.lhms.module.common.entity.Image;
 import edu.xhu.lhms.module.common.service.ImageService;
 import edu.xhu.lhms.module.common.vo.Result;
@@ -70,7 +71,7 @@ public class ImageController {
 	 * 127.0.0.1/api/common/images ---- post
 	 */
 	@PostMapping(value = "/getImages", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public PageInfo<Image> getModelsBySearch(@RequestBody Search search) {
+	public Result<PageInfo<Feedback>> getModelsBySearch(@RequestBody Search search) {
 		return imageService.getModelsBySearch(search);
 	}
 }

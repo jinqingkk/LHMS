@@ -1,8 +1,8 @@
 package edu.xhu.lhms.module.common.service;
 
 import com.github.pagehelper.PageInfo;
+import edu.xhu.lhms.module.Feedback.entity.Feedback;
 import edu.xhu.lhms.module.common.vo.Result;
-import edu.xhu.lhms.module.common.vo.Search;
 
 /**
  * ModelService
@@ -17,5 +17,5 @@ public interface ModelService<T,S> {
 
 	Result<T> getModelById(int id);
 
-	PageInfo<T> getModelsBySearch(S search);
+	Result<PageInfo<Feedback>> getModelsBySearch(S search);
 }

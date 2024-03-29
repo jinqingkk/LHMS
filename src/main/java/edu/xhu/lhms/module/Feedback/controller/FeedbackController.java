@@ -39,7 +39,7 @@ public class FeedbackController {
 	}
 
 	@PostMapping(value = "/getFeedbacks", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public PageInfo<Feedback> getModelsBySearch(@RequestBody FeedbackVo search) {
+	public Result<PageInfo<Feedback>> getModelsBySearch(@RequestBody FeedbackVo search) {
 		return feedbackService.getModelsBySearch(search);
 	}
 

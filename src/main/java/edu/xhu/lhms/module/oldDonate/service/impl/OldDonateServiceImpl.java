@@ -2,9 +2,9 @@ package edu.xhu.lhms.module.oldDonate.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.xhu.lhms.module.Feedback.entity.Feedback;
 import edu.xhu.lhms.module.account.dao.UserDao;
 import edu.xhu.lhms.module.common.vo.Result;
-import edu.xhu.lhms.module.common.vo.Search;
 import edu.xhu.lhms.module.oldDonate.dao.OldDonateDao;
 import edu.xhu.lhms.module.oldDonate.entity.OlddonateInfo;
 import edu.xhu.lhms.module.oldDonate.service.OldDonateService;
@@ -65,7 +65,7 @@ public class OldDonateServiceImpl implements OldDonateService {
     }
 
     @Override
-    public PageInfo<OlddonateInfo> getModelsBySearch(OldDonateVo search) {
+    public Result<PageInfo<Feedback>> getModelsBySearch(OldDonateVo search) {
         return null;
     }
 

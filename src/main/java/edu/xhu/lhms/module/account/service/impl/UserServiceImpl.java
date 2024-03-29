@@ -2,6 +2,7 @@ package edu.xhu.lhms.module.account.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.xhu.lhms.module.Feedback.entity.Feedback;
 import edu.xhu.lhms.module.account.dao.LoginInfoDao;
 import edu.xhu.lhms.module.account.dao.UserDao;
 import edu.xhu.lhms.module.account.entity.LoginInfo;
@@ -13,7 +14,6 @@ import edu.xhu.lhms.module.common.dao.ImageDao;
 import edu.xhu.lhms.module.common.entity.Image;
 import edu.xhu.lhms.module.common.vo.ImageType;
 import edu.xhu.lhms.module.common.vo.Result;
-import edu.xhu.lhms.module.common.vo.Search;
 import edu.xhu.lhms.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -173,12 +173,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
-	public PageInfo<User> getModelsBySearch(UserVo search) {
+	public Result<PageInfo<Feedback>> getModelsBySearch(UserVo search) {
 		search.initSearch();
 		PageHelper.startPage(search.getCurrentPage(), search.getPageSize());
-		return new PageInfo<>(Optional
+		return Result.ok(new PageInfo<>(Optional
 				.ofNullable(userDao.getUsersBySearch(search))
-				.orElse(Collections.emptyList()));
+				.orElse(Collections.emptyList())));
 	}
 
 	//@Override
@@ -286,5 +286,25 @@ public class UserServiceImpl implements UserService {
 //			}
 //		});
 		return Result.ok(pageInfo);
+	}
+
+	@Override
+	public Result<User> updatePassword(User model) {
+		User user=userDao.selectById(model.getId());
+		model.setPassword(MD5Util.getMD5(model.getPassword()));
+		if(model.getPassword().compareTo(user.getPassword())!=0){
+			return Result.faild("原密码错误");
+		}
+
+		if(model.getNewPassword()!=null){
+			model.setNewPassword(MD5Util.getMD5(model.getNewPassword()));
+			if(model.getNewPassword()==user.getPassword()){
+				return Result.faild("密码重复");
+			}
+			user.setPassword(model.getNewPassword());
+			userDao.updateById(user);
+			return  Result.ok(user);
+		}
+		return Result.faild("未输入新密码");
 	}
 }

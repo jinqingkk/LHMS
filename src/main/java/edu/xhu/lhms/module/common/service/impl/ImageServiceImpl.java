@@ -3,6 +3,7 @@ package edu.xhu.lhms.module.common.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import edu.xhu.lhms.config.ResourceConfigBean;
+import edu.xhu.lhms.module.Feedback.entity.Feedback;
 import edu.xhu.lhms.module.common.dao.ImageDao;
 import edu.xhu.lhms.module.common.entity.Image;
 import edu.xhu.lhms.module.common.service.ImageService;
@@ -132,11 +133,11 @@ public class ImageServiceImpl implements ImageService {
 	}
 
 	@Override
-	public PageInfo<Image> getModelsBySearch(Search search) {
+	public Result<PageInfo<Feedback>> getModelsBySearch(Search search) {
 		search.initSearch();
 		PageHelper.startPage(search.getCurrentPage(), search.getPageSize());
-		return new PageInfo<Image>(Optional
+		return Result.ok(new PageInfo<Image>(Optional
 				.ofNullable(imageDao.getImagesBySearch(search))
-				.orElse(Collections.emptyList()));
+				.orElse(Collections.emptyList())));
 	}
 }

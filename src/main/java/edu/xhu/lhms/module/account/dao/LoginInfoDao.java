@@ -21,7 +21,7 @@ public interface LoginInfoDao  extends BaseMapper<LoginInfo> {
             + "select * from login_info "
             + "<where> "
             + "<if test='userId != 0' >"
-            + " and (user_id like #{userId} ) "
+            + " and (user_id = #{userId} ) "
             + "</if>"
             + "<if test=' createDate != null'>"
             + " and (create_Date &gt;= #{createDate} ) "

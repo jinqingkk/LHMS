@@ -53,6 +53,11 @@ public class UserController {
 	public Result<User> updateModel(@RequestBody User model) {
 		return userService.updateModel(model);
 	}
+	@PutMapping(value = "/updatePass", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Result<User> updatePassword(@RequestBody User model) {
+		return userService.updatePassword(model);
+	}
+
 	@DeleteMapping(value = "/deleteUserByid/{id}")
 	public Result<Object> deleteModelById(@PathVariable int id) {
 		return userService.deleteModelById(id);

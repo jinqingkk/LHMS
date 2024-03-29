@@ -19,6 +19,9 @@ public class User extends AbstractEntity {
 	private String password;
 	@Transient
 	@TableField(exist = false)
+	private String newPassword;
+	@Transient
+	@TableField(exist = false)
 	private List<Image> images;
 
 //	@TableField("open_id")
@@ -122,5 +125,13 @@ public class User extends AbstractEntity {
 
 	public void setCredential(String credential) {
 		this.credential = credential;
+	}
+
+	public String getNewPassword() {
+		return newPassword;
+	}
+
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
 	}
 }

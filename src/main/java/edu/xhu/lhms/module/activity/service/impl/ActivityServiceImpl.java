@@ -2,14 +2,13 @@ package edu.xhu.lhms.module.activity.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.xhu.lhms.module.Feedback.entity.Feedback;
 import edu.xhu.lhms.module.account.dao.UserDao;
-import edu.xhu.lhms.module.account.entity.User;
 import edu.xhu.lhms.module.activity.dao.ActivityDao;
 import edu.xhu.lhms.module.activity.entity.Activity;
 import edu.xhu.lhms.module.activity.service.ActivityService;
 import edu.xhu.lhms.module.activity.vo.ActivityVo;
 import edu.xhu.lhms.module.common.vo.Result;
-import edu.xhu.lhms.module.common.vo.Search;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -70,7 +69,7 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public PageInfo<Activity> getModelsBySearch(ActivityVo search) {
+    public Result<PageInfo<Feedback>> getModelsBySearch(ActivityVo search) {
         return null;
     }
 

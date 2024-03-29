@@ -2,9 +2,9 @@ package edu.xhu.lhms.module.regisActivity.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.xhu.lhms.module.Feedback.entity.Feedback;
 import edu.xhu.lhms.module.account.dao.UserDao;
 import edu.xhu.lhms.module.common.vo.Result;
-import edu.xhu.lhms.module.common.vo.Search;
 import edu.xhu.lhms.module.regisActivity.dao.RegisActivityDao;
 import edu.xhu.lhms.module.regisActivity.entity.RegisActivity;
 import edu.xhu.lhms.module.regisActivity.service.RegisActivityService;
@@ -79,7 +79,7 @@ public class RegisActivityServiceImpl implements RegisActivityService {
     }
 
     @Override
-    public PageInfo<RegisActivity> getModelsBySearch(RegisActivityVo search) {
+    public Result<PageInfo<Feedback>> getModelsBySearch(RegisActivityVo search) {
 
         return null;
     }

@@ -2,13 +2,13 @@ package edu.xhu.lhms.module.volunActivity.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.xhu.lhms.module.Feedback.entity.Feedback;
 import edu.xhu.lhms.module.account.dao.UserDao;
 import edu.xhu.lhms.module.account.entity.User;
 import edu.xhu.lhms.module.common.dao.ImageDao;
 import edu.xhu.lhms.module.common.entity.Image;
 import edu.xhu.lhms.module.common.vo.ImageType;
 import edu.xhu.lhms.module.common.vo.Result;
-import edu.xhu.lhms.module.common.vo.Search;
 import edu.xhu.lhms.module.regisActivity.dao.RegisActivityDao;
 import edu.xhu.lhms.module.volunActivity.dao.VolunActivityDao;
 import edu.xhu.lhms.module.volunActivity.entity.VolunActivity;
@@ -116,7 +116,7 @@ public class VolunActivityServiceImpl implements VolunActivityService {
     }
 
     @Override
-    public PageInfo<VolunActivity> getModelsBySearch(VolunActivityVo search) {
+    public Result<PageInfo<Feedback>> getModelsBySearch(VolunActivityVo search) {
         return null;
     }
 

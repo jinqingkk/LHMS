@@ -2,9 +2,9 @@ package edu.xhu.lhms.module.needThings.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.xhu.lhms.module.Feedback.entity.Feedback;
 import edu.xhu.lhms.module.account.dao.UserDao;
 import edu.xhu.lhms.module.common.vo.Result;
-import edu.xhu.lhms.module.common.vo.Search;
 import edu.xhu.lhms.module.needThings.dao.NeedThingDao;
 import edu.xhu.lhms.module.needThings.entity.NeedThing;
 import edu.xhu.lhms.module.needThings.service.NeedThingService;
@@ -68,7 +68,7 @@ public class NeedThingServiceImpl implements NeedThingService {
     }
 
     @Override
-    public PageInfo<NeedThing> getModelsBySearch(NeedThingVo search) {
+    public Result<PageInfo<Feedback>> getModelsBySearch(NeedThingVo search) {
         return null;
     }
 

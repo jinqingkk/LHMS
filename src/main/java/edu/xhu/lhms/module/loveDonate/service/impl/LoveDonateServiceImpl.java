@@ -2,9 +2,9 @@ package edu.xhu.lhms.module.loveDonate.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import edu.xhu.lhms.module.Feedback.entity.Feedback;
 import edu.xhu.lhms.module.account.dao.UserDao;
 import edu.xhu.lhms.module.common.vo.Result;
-import edu.xhu.lhms.module.common.vo.Search;
 import edu.xhu.lhms.module.loveDonate.dao.LoveDonateDao;
 import edu.xhu.lhms.module.loveDonate.entity.LovedonateInfo;
 import edu.xhu.lhms.module.loveDonate.service.LoveDonateService;
@@ -65,7 +65,7 @@ public class LoveDonateServiceImpl implements LoveDonateService {
     }
 
     @Override
-    public PageInfo<LovedonateInfo> getModelsBySearch(LoveDonateVo search) {
+    public Result<PageInfo<Feedback>> getModelsBySearch(LoveDonateVo search) {
         return null;
     }
 

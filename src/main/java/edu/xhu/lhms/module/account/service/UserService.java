@@ -40,4 +40,6 @@ public interface UserService extends ModelService<User,UserVo> {
 	Result<Object> deleteLoginInfoById(int id);
 
 	Result<PageInfo<LoginInfo>> findLoginInfos(LoginInfoVo search);
+
+    Result<User> updatePassword(User model);
 }
